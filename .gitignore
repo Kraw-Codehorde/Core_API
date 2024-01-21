@@ -6,3 +6,4 @@ dist/
 webpack-stats.json
 frontend/webpack-stats.json
 frontend/dist/main.js
+db.sqlite3
