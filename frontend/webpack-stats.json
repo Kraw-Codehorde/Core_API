@@ -10,7 +10,5 @@
     "main": [
       "main.js"
     ]
-  },
-  "error": "ModuleNotFoundError",
-  "message": "Module not found: Error: Can't resolve './src' in '/home/luciusoso/projects/portfolio/frontend'"
+  }
 }
