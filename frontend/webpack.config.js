@@ -2,6 +2,11 @@ const path = require("path");
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
+  
+  resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    extensions: ['', '.js', '.jsx'],
+  },
   module: {
     rules: [
       {
@@ -9,7 +14,7 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: ["babel-loader"]
       }
