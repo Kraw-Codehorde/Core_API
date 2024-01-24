@@ -18,4 +18,23 @@
             "source.organizeImports": true
         }
     },
+    
+    "[javascript]": {
+    "editor.formatOnSave": false
+    },
+    "[javascriptreact]": {
+    "editor.formatOnSave": false 
+    },
+    "prettier.disableLanguages": [],
+    "prettier.documentSelectors": [
+        {
+            "language": "javascript",
+            "scheme": "file" 
+        },
+        {
+            "language": "javascriptreact", 
+            "scheme": "file"
+        }
+    ],
+
 }
