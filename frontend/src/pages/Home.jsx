@@ -1,24 +1,15 @@
 import React, { useEffect } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import ListProjects from "../components/ListProjects";
-import axios from "axios";
 import { useState } from "react";
 import useAxiosWithInterceptor from "../helpers/jwtinterceptor";
+import useCrud from "../hooks/useCruds";
 
 const Home = () => {
-  const [projects, setProjects] = useState([]);
-  const jwtAxios = useAxiosWithInterceptor();
+  const { fetchData, dataCRUD, error, isLoading } = useCrud([], "/projects");
 
   useEffect(() => {
-    jwtAxios
-      .get("http://localhost:8000/api/projects/")
-      .then((res) => {
-        console.log(res.data);
-        setProjects(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    fetchData();
   }, []);
 
   return (
@@ -45,7 +36,7 @@ const Home = () => {
           <Typography variant="h5">Projects</Typography>
 
           <Grid container spacing={2}>
-            <ListProjects projects={projects} />
+            <ListProjects projects={dataCRUD} />
           </Grid>
         </Box>
 
