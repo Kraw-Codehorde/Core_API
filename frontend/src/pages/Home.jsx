@@ -3,12 +3,14 @@ import { Grid, Box, Typography, Button } from "@mui/material";
 import ListProjects from "../components/ListProjects";
 import axios from "axios";
 import { useState } from "react";
+import useAxiosWithInterceptor from "../helpers/jwtinterceptor";
 
 const Home = () => {
   const [projects, setProjects] = useState([]);
+  const jwtAxios = useAxiosWithInterceptor();
 
   useEffect(() => {
-    axios
+    jwtAxios
       .get("http://localhost:8000/api/projects/")
       .then((res) => {
         console.log(res.data);
