@@ -5,11 +5,10 @@ const Home = () => {
   return (
     <Box className={homeStyles.homePageContainer}>
       <h1>Spotify App</h1>
-
       <Grid container spacing={2} direction="column" alignItems="center">
         <p>This is a Spotify App</p>
         <Grid item xs={12} sm={6} md={4}>
-          <Button>Create your own Room</Button>
+          <Button variant="oultined">Create your own Room</Button>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Button>Join a Room</Button>
