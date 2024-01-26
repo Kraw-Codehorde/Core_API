@@ -1,7 +1,13 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import PathConstants from "../routes/pathConstants";
 
 const CreateRoom = () => {
-  return <div>CreateRoom</div>;
+  return (
+    <>
+      <h1>CreateRoom</h1>
+      <Link to={PathConstants.HOME}>HOME</Link>
+    </>
+  );
 };
 
 export default CreateRoom;

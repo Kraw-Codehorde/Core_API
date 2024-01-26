@@ -1,20 +1,23 @@
-import { Box, Grid, Button } from "@mui/material";
-import homeStyles from "../css/homeStyles.module.css";
+import { Link } from "react-router-dom";
+import PathConstants from "../routes/pathConstants";
+import { Grid, Button } from "@mui/material";
 
 const Home = () => {
   return (
-    <Box className={homeStyles.homePageContainer}>
+    <>
       <h1>Spotify App</h1>
       <Grid container spacing={2} direction="column" alignItems="center">
         <p>This is a Spotify App</p>
         <Grid item xs={12} sm={6} md={4}>
-          <Button variant="oultined">Create your own Room</Button>
+          <Link component="button" to={PathConstants.CREATE_ROOM}>
+            CREATE A ROOM
+          </Link>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Button>Join a Room</Button>
         </Grid>
       </Grid>
-    </Box>
+    </>
   );
 };
 
