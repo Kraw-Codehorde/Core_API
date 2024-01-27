@@ -9,7 +9,11 @@ const Home = () => {
       <Grid container spacing={2} direction="column" alignItems="center">
         <p>This is a Spotify App</p>
         <Grid item xs={12} sm={6} md={4}>
-          <Link component="button" to={PathConstants.CREATE_ROOM}>
+          <Link
+            component="button"
+            variant="body2"
+            to={PathConstants.CREATE_ROOM}
+          >
             CREATE A ROOM
           </Link>
         </Grid>
