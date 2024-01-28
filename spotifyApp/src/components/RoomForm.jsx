@@ -1,7 +1,7 @@
 import { Paper, Button } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import FormRoomName from "./form/FormRoomName";
-
+import { RadioGroup, Radio, FormControlLabel, Switch } from "@mui/material";
 const defaultValues = {
   name: "",
 };
@@ -21,6 +21,30 @@ const RoomForm = () => {
       }}
     >
       <FormRoomName name="name" control={control} label="Name" />
+      {/* Radio Group */}
+      <Controller
+        name="option"
+        control={control}
+        defaultValue="1"
+        render={({ field }) => (
+          <RadioGroup {...field} row>
+            <FormControlLabel value="1" control={<Radio />} label="Option 1" />
+            <FormControlLabel value="2" control={<Radio />} label="Option 2" />
+          </RadioGroup>
+        )}
+      />
+      {/* Switch Input */}
+      <Controller
+        name="switch"
+        control={control}
+        defaultValue={false}
+        render={({ field }) => (
+          <FormControlLabel
+            control={<Switch {...field} color="primary" />}
+            label="Toggle Switch"
+          />
+        )}
+      />
       <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
         Submit
       </Button>
