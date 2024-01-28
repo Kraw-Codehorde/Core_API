@@ -17,12 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
-from rest_framework.schemas import get_schema_view
 
 from api import views
-
-schema_view = get_schema_view(title='Core API')
 
 router = routers.DefaultRouter()
 router.register(r'api/users', views.UserViewSet)
@@ -34,7 +32,8 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/schema/', schema_view),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view()),
 ]
 
 urlpatterns += router.urls
