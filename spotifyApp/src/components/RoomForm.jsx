@@ -2,13 +2,21 @@ import { Paper, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import FormRoomName from "./form/FormRoomName";
 import { RadioGroup, Radio, FormControlLabel, Switch } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 const defaultValues = {
   name: "",
 };
 
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+});
+
 const RoomForm = () => {
   const { handleSubmit, reset, control, setValue } = useForm({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
     console.log(data);
