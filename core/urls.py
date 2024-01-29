@@ -21,16 +21,21 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 
 from api import views
+from api_spotify import views as spotify_views
 
 router = routers.DefaultRouter()
-router.register(r'api/users', views.UserViewSet)
-router.register(r'api/groups', views.GroupViewSet)
-router.register(r'api/projects', views.ProjectViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register(r'projects', views.ProjectViewSet)
+
+spotify_router = routers.DefaultRouter()
+spotify_router.register(r'rooms', spotify_views.RoomViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html')),
     path('api/', include(router.urls)),
+    path('api/spotify/', include(spotify_router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view()),

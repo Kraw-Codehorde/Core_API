@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'projects',
     'drf_spectacular',
+    'api_spotify',
 ]
 
 MIDDLEWARE = [
