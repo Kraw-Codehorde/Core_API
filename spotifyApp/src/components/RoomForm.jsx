@@ -4,13 +4,14 @@ import FormRoomName from "./form/FormRoomName";
 import { RadioGroup, Radio, FormControlLabel, Switch } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import useCrud from "../hooks/useCruds";
 
 const defaultValues = {
-  name: "",
+  room_name: "",
 };
 
 const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
+  room_name: yup.string().required("Name is required"),
 });
 
 const RoomForm = () => {
@@ -18,8 +19,11 @@ const RoomForm = () => {
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
+  const { createData, dataCRUD, error, isLoading } = useCrud([], "/rooms/");
   const onSubmit = (data) => {
     console.log(data);
+    createData(data);
+    console.log(dataCRUD);
   };
 
   return (
@@ -28,9 +32,9 @@ const RoomForm = () => {
         display: "grid",
       }}
     >
-      <FormRoomName name="name" control={control} label="Name" />
+      <FormRoomName name="room_name" control={control} label="Room Name" />
       {/* Radio Group */}
-      <Controller
+      {/* <Controller
         name="option"
         control={control}
         defaultValue="1"
@@ -40,9 +44,9 @@ const RoomForm = () => {
             <FormControlLabel value="2" control={<Radio />} label="Option 2" />
           </RadioGroup>
         )}
-      />
+      /> */}
       {/* Switch Input */}
-      <Controller
+      {/* <Controller
         name="switch"
         control={control}
         defaultValue={false}
@@ -52,7 +56,7 @@ const RoomForm = () => {
             label="Toggle Switch"
           />
         )}
-      />
+      /> */}
       <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
         Submit
       </Button>

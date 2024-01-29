@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import permissions, viewsets
+from rest_framework.response import Response
 
 from.models import Room
 from.serializers import RoomSerializer
@@ -9,8 +10,9 @@ from.serializers import RoomSerializer
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
+    
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
     

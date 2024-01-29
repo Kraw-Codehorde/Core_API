@@ -7,10 +7,9 @@ import useCrud from "../hooks/useCruds";
 const CreateRoom = () => {
   const { fetchData, dataCRUD, error, isLoading } = useCrud([], "/rooms");
 
-  useEffect(() => {
-    fetchData();
-    console.log(dataCRUD);
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
   return (
     <>
       <h1>CreateRoom</h1>

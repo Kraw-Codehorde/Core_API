@@ -12,7 +12,7 @@ const useCrud = (data = [], url) => {
     setIsLoading(true);
     try {
       const res = await jwtAxios.get(BASE_URL + url, {});
-      //   console.log(res.data);
+      // console.log(res.data);
       setDataCRUD(res.data);
       setError(null);
       setIsLoading(false);
@@ -25,7 +25,25 @@ const useCrud = (data = [], url) => {
       throw error;
     }
   };
-  return { fetchData, dataCRUD, error, isLoading };
+
+  const createData = async (data) => {
+    setIsLoading(true);
+    try {
+      const res = await jwtAxios.post(BASE_URL + url, data);
+      setDataCRUD(res.data);
+      setError(null);
+      setIsLoading(false);
+      return res.data;
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setError(new Error("400"));
+      }
+      setIsLoading(false);
+      throw error;
+    }
+  };
+
+  return { fetchData, createData, dataCRUD, error, isLoading };
 };
 
 export default useCrud;
