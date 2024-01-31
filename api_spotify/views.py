@@ -14,7 +14,11 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     
     def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+        try:
+             room = Room.objects.get(room_code=kwargs['pk'])
+             return Response(RoomSerializer(room).data)
+        except Exception as e:
+             return Response(status=404)
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -31,8 +31,8 @@ const RoomForm = () => {
   useEffect(() => {
     if (dataCRUD.length !== 0) {
       // if data is not empty, datacrud returns an object
-      console.log(dataCRUD);
-      navigate(`/room/${dataCRUD.id}`);
+      // console.log(dataCRUD);
+      navigate(`/room/${dataCRUD.room_code}`);
     }
   }, [dataCRUD]);
 
