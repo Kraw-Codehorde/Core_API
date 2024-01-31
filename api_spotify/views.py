@@ -17,7 +17,15 @@ class RoomViewSet(viewsets.ModelViewSet):
         return super().retrieve(request, *args, **kwargs)
     
     def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+             serializer.save()
+        except Exception as e:
+             return Response(serializer.errors, status=400)
+        return Response(serializer.data, status=201)
+        # return super().create(request, *args, **kwargs)
     
     def update(self, request, *args, **kwargs):
             return super().update(request, *args, **kwargs)
