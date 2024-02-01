@@ -39,6 +39,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view()),
+    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
+    
 ]
 
 urlpatterns += router.urls
