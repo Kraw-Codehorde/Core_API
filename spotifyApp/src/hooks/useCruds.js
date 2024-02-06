@@ -20,11 +20,9 @@ const useCrud = (data = [], url) => {
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setError(new Error("400"));
-      }
-      // else if (err.response && err.response.status === 404) {
-      //   setError(new Error("404"));
-      // }
-      else {
+      } else if (err.response && err.response.status === 404) {
+        setError(new Error("404"));
+      } else {
         // console.log("setting unknown error");
         // console.log(err.response.status);
         setError(err);

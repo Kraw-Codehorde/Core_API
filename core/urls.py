@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 
@@ -36,6 +36,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html')),
     path('api/', include(router.urls)),
     path('api/spotify/', include(spotify_router.urls)),
+    path('api/spotify/auth/token', RedirectView.as_view(url='/auth/token')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view()),

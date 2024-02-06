@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [showTextField, setShowTextField] = useState(false);
   const [roomCode, setRoomCode] = useState("");
+  const [validationError, setValidationError] = useState(false);
   const navigate = useNavigate();
   const { fetchData, dataCRUD, error, isLoading } = useCrud(
     [],
@@ -22,6 +23,7 @@ const Home = () => {
   };
   useEffect(() => {
     if (error) {
+      setValidationError(true);
       console.log(error);
     }
     if (dataCRUD.length !== 0) {
@@ -54,7 +56,7 @@ const Home = () => {
               margin="normal"
               value={roomCode}
               onChange={(e) => setRoomCode(e.target.value)}
-              error={error}
+              error={validationError}
               helperText={error ? "Invalid Code" : ""}
               InputProps={{
                 endAdornment: (
