@@ -158,13 +158,19 @@ REST_FRAMEWORK = {
         'drf_social_oauth2.authentication.SocialAuthentication',
     ),
     'AUTHENTICATION_BACKENDS': (
-    
+        #spotify oauth2
+        'social_core.backends.spotify.SpotifyOAuth2',
+        #drf-social-oauth2    
         'drf_social_oauth2.backends.DjangoOAuth2',
+        #Django
         'django.contrib.auth.backends.ModelBackend',
 ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+
+
+# SOCIAL_AUTH_SPOTIFY_SCOPE = ['user-read-email', 'user-read-private']
 
 
 SPECTACULAR_SETTINGS = {

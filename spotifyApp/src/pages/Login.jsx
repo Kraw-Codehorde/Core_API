@@ -25,12 +25,9 @@ const Login = () => {
     // window.localStorage.setItem("accessToken", "123456");
     // checkLoginState();
     // navigate("/");
-    axiosClient.post("auth/token", dataToSend, _config).then((res) => {
+    axiosClient.get("api/spotify/login").then((res) => {
       console.log(res.data);
-      localStorage.setItem("accessToken", res.data.access_token);
-      localStorage.setItem("refreshToken", res.data.refresh_token);
-      checkLoginState();
-      navigate("/");
+      window.location.href = res.data.spotify_login_url;
     });
   };
   return (
