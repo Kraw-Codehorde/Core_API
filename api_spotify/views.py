@@ -1,10 +1,14 @@
+import base64
+
 from django.shortcuts import render
-from requests import Request
+from requests import Request, post
 from rest_framework import permissions, viewsets
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .credentials import SPOTIFY_APP_ID
+from .credentials import SPOTIFY_APP_ID, SPOTIFY_APP_SECRET
+from .utils import create_or_update_user_tokens
 
 from.models import Room
 from.serializers import RoomSerializer
@@ -29,6 +33,47 @@ class SpotifyApiLoginView(APIView):
               }).prepare().url
          
          return Response({'spotify_login_url': spotify_login_url})
+     
+@api_view(['GET'])
+def spotify_callback(request):
+     """
+     Handles the callback from Spotify API.
+     Stores the user's access token in the database.
+     """
+     code = request.GET.get('code')
+     error = request.GET.get('error')
+
+     credentials = f"{SPOTIFY_APP_ID}:{SPOTIFY_APP_SECRET}"
+     credentials_encoded = base64.b64encode(credentials.encode()).decode()
+
+     response = post(
+          'https://accounts.spotify.com/api/token',
+          params={
+               'grant_type': 'authorization_code',
+               'code': code,
+               'redirect_uri': 'http://localhost:8000/api/spotify/redirect',
+          },
+          headers={
+               'Content-Type': 'application/x-www-form-urlencoded',
+               'Authorization': f'Basic {credentials_encoded}',
+          })
+     
+     #if there's no session associated with a request, create one
+     if not request.session.exists(request.session.session_key):
+          request.session.create()
+
+     # print (response)
+     
+     if response.status_code == 200:
+          data = response.json()
+          session_id = request.session.session_key
+          access_token = data.get('access_token')
+          refresh_token = data.get('refresh_token')
+          expires_in = data.get('expires_in')
+          create_or_update_user_tokens(session_id, access_token, refresh_token, expires_in)
+
+          
+     return Response({'response': response})
 
 
 

@@ -9,9 +9,7 @@ class SpotifyUserToken(models.Model):
     expires_at = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    username = models.CharField(max_length=100)
-    email = models.EmailField(null=False, blank=False, unique=True)
-
+    user_session = models.CharField(max_length=100)
 
 class Room(models.Model):
     def generate_random_code():

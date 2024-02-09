@@ -5,18 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const axiosClient = axios.create({ baseURL: "http://localhost:8000" });
-const dataToSend = {
-  grant_type: "password",
-  username: "admin",
-  password: "admin",
-  client_id: "clientid",
-  client_secret: "clientsecret",
-};
-const _config = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
 
 const Login = () => {
   const { checkLoginState } = useAuth();

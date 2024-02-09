@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/spotify/', include(spotify_router.urls)),
     path('api/spotify/login', spotify_views.SpotifyApiLoginView.as_view(), name='login'),
+    path('api/spotify/redirect', spotify_views.spotify_callback, name='redirect'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view()),
