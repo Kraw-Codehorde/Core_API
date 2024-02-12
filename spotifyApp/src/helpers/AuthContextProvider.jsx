@@ -32,9 +32,7 @@ const AuthContextProvider = ({ children }) => {
     fetchData();
     // console.log("loggedIn", loggedIn);
   }, [loggedIn]);
-  // useEffect(() => {
-  //   console.log("loggedIn", loggedIn);
-  // }, []);
+
   return (
     <AuthContext.Provider value={{ loggedIn, checkLoginState }}>
       {children}

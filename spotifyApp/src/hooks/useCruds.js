@@ -1,9 +1,12 @@
-import useAxiosWithInterceptor from "../helpers/jwtinterceptor";
 import { BASE_URL } from "../config";
 import { useState } from "react";
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+});
 
 const useCrud = (data = [], url) => {
-  const jwtAxios = useAxiosWithInterceptor();
   const [dataCRUD, setDataCRUD] = useState(data);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +14,7 @@ const useCrud = (data = [], url) => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await jwtAxios.get(BASE_URL + url, {});
+      const res = await axiosInstance.get(BASE_URL + url, {});
       // console.log(res.data);
       setDataCRUD(res.data);
       setError(null);
