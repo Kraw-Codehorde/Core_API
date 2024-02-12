@@ -2,38 +2,41 @@ import { createContext, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import PathConstants from "../routes/pathConstants";
 import { useEffect } from "react";
+import axios from "axios";
+import { get, set } from "react-hook-form";
 
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      return true;
-    } else {
+  const checkLoginState = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8000/api/spotify/is-authenticated",
+        {
+          withCredentials: true,
+        }
+      );
+      return res.data.is_authenticated;
+    } catch (err) {
+      console.log("Error:", err);
       return false;
     }
-  });
-  const [user, setUser] = useState(null);
-
-  const checkLoginState = () => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setLoggedIn(true);
-      setUser(token);
-      //   console.log("logged in");
-    } else {
-      setLoggedIn(false);
-      setUser(null);
-      //   console.log("not logged in");
-    }
   };
-  //   useEffect(() => {
-  //     checkLoginState();
-  //   }, []);
+  const [loggedIn, setLoggedIn] = useState(() => checkLoginState());
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const isAuthenticated = await checkLoginState();
+      setLoggedIn(isAuthenticated);
+    };
+    fetchData();
+    // console.log("loggedIn", loggedIn);
+  }, [loggedIn]);
+  // useEffect(() => {
+  //   console.log("loggedIn", loggedIn);
+  // }, []);
   return (
-    <AuthContext.Provider value={{ loggedIn, user, checkLoginState }}>
+    <AuthContext.Provider value={{ loggedIn, checkLoginState }}>
       {children}
     </AuthContext.Provider>
   );

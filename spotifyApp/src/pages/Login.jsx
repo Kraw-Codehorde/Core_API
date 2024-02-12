@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useAuth } from "../helpers/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import axios from "axios";
 
@@ -18,6 +19,10 @@ const Login = () => {
       window.location.href = res.data.spotify_login_url;
     });
   };
+  // useEffect(() => {
+  //   checkLoginState();
+  // }, []);
+
   return (
     <>
       <div>Login</div>

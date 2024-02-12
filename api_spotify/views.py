@@ -1,14 +1,14 @@
 import base64
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from requests import Request, post
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .credentials import SPOTIFY_APP_ID, SPOTIFY_APP_SECRET
-from .utils import create_or_update_user_tokens
+from .credentials import CREDENTIALS_ENCODED, SPOTIFY_APP_ID
+from .utils import create_or_update_user_tokens, is_spotify_authenticated
 
 from.models import Room
 from.serializers import RoomSerializer
@@ -34,7 +34,25 @@ class SpotifyApiLoginView(APIView):
          
          return Response({'spotify_login_url': spotify_login_url})
      
-@api_view(['GET'])
+class IsSpotifyAuthenticated(APIView):
+     """
+     Checks for user session_id.
+     If session exists, checks if a spotify token with that session_id exists.
+     If no token exists, returns false.
+     Returns true if a token exists.
+     """
+
+     def get(self, request, format=None):
+          # if not request.session.session_key:
+          #      request.session.create()
+          print ('session', request.session.session_key)
+          session_id = request.session.session_key
+          
+          return Response({'is_authenticated': is_spotify_authenticated(session_id)},
+                          status=status.HTTP_200_OK)
+
+
+
 def spotify_callback(request):
      """
      Handles the callback from Spotify API.
@@ -42,9 +60,6 @@ def spotify_callback(request):
      """
      code = request.GET.get('code')
      error = request.GET.get('error')
-
-     credentials = f"{SPOTIFY_APP_ID}:{SPOTIFY_APP_SECRET}"
-     credentials_encoded = base64.b64encode(credentials.encode()).decode()
 
      response = post(
           'https://accounts.spotify.com/api/token',
@@ -55,12 +70,13 @@ def spotify_callback(request):
           },
           headers={
                'Content-Type': 'application/x-www-form-urlencoded',
-               'Authorization': f'Basic {credentials_encoded}',
+               'Authorization': f'Basic {CREDENTIALS_ENCODED}',
           })
      
      #if there's no session associated with a request, create one
      if not request.session.exists(request.session.session_key):
           request.session.create()
+
 
      # print (response)
      
@@ -73,8 +89,7 @@ def spotify_callback(request):
           create_or_update_user_tokens(session_id, access_token, refresh_token, expires_in)
 
           
-     return Response({'response': response})
-
+     return redirect('http://localhost:5173')
 
 
 class SpotifyApiView(APIView):
