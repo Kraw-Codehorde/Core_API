@@ -74,3 +74,20 @@ def is_spotify_authenticated(session_id):
     else:
         return False
     
+def parse_current_song_data(res_data):
+    """
+    Parses the current song data from the response data.
+    """
+    song_data = res_data.get('item')
+    song_name = song_data.get('name')
+    artist_name = song_data.get('artists')[0].get('name')
+    album_name = song_data.get('album').get('name')
+    cover_art_url = song_data.get('album').get('images')[0].get('url')
+    song_url = song_data.get('external_urls').get('spotify')
+    return {
+       'song_name': song_name,
+        'artist_name': artist_name,
+        'album_name': album_name,
+        'cover_art_url': cover_art_url,
+       'song_url': song_url
+    }

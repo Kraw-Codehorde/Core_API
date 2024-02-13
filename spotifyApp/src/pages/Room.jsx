@@ -2,20 +2,44 @@
 // unique code or url using :id.
 import { Link, useParams } from "react-router-dom";
 import PathConstants from "../routes/pathConstants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useCrud from "../hooks/useCruds";
 
 const Room = () => {
   const { id } = useParams();
-  const { fetchData, dataCRUD, error, isLoading } = useCrud([], `/rooms/${id}`);
+  const { fetchData } = useCrud([], `/current-song?room_code=${id}`);
+  const [dataToShow, setDataToShow] = useState("<div>...loading</div>");
+
+  const populateData = (code, data) => {
+    if (code === 200) {
+      console.log("song", data.song_name);
+      return (
+        <div>
+          <h1>Room</h1>
+          <p>Room Code: {id}</p>
+          <p>Current Song: {data.song_name}</p>
+        </div>
+      );
+    }
+    if (code === 204) {
+      return <div>No songs currently being played</div>;
+    }
+    return <div>...error</div>;
+  };
 
   useEffect(() => {
-    fetchData();
+    const fetchDataAsync = async () => {
+      const res = await fetchData();
+      setDataToShow(populateData(res.status, res.data));
+    };
+    fetchDataAsync();
+    // console.log("status", status);
   }, []);
+
   return (
     <>
-      <div>Room code:{dataCRUD.room_code}</div>
-      <div>Room name:{dataCRUD.room_name}</div>
+      {dataToShow}
+
       <Link to={PathConstants.HOME}>HOME</Link>
     </>
   );

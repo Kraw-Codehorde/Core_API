@@ -11,17 +11,26 @@ const useCrud = (data = [], url) => {
   const [dataCRUD, setDataCRUD] = useState(data);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(null);
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const res = await axiosInstance.get(BASE_URL + url, {});
-      // console.log(res.data);
+      // console.log(res.status);
+      setStatus(res.status);
       setDataCRUD(res.data);
       setError(null);
       setIsLoading(false);
-      return res.data;
+
+      let _data = {};
+      _data.data = res.data;
+      _data.status = res.status;
+      // console.log("data", _data);
+      // console.log("status", status);
+      return _data;
     } catch (err) {
+      console.log("error catching");
       if (err.response && err.response.status === 400) {
         setError(new Error("400"));
       } else if (err.response && err.response.status === 404) {

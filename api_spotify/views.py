@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .credentials import CREDENTIALS_ENCODED, SPOTIFY_APP_ID
-from .utils import create_or_update_user_tokens, is_spotify_authenticated
+from .utils import *
 
 from.models import Room, SpotifyUserToken
 from.serializers import RoomSerializer
@@ -94,7 +94,7 @@ def spotify_callback(request):
 class CurrentSpotifySong(APIView):
      def get(self, request, format=None):
           room_code = request.GET.get('room_code')
-          print('room_code', room_code)
+        
           try:
                room = Room.objects.get(room_code=room_code)
           
@@ -109,10 +109,11 @@ class CurrentSpotifySong(APIView):
                          })
           
           if response.status_code == 200:
-               data = response.json()
+               data = parse_current_song_data(response.json())
                return Response(data)
           if response.status_code > 200 and response.status_code < 300:
-               return Response({'error': 'no song is currently playing.'})
+               return Response({'error': 'no song is currently playing.', 
+                                }, status=response.status_code)
           
           return Response({'error': 'there was an error.'}, status=response.status_code)
           
