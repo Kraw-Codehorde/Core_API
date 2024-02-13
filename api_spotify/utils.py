@@ -73,3 +73,4 @@ def is_spotify_authenticated(session_id):
             return True
     else:
         return False
+    

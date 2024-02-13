@@ -4,6 +4,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
 });
 
 const useCrud = (data = [], url) => {
@@ -38,7 +39,7 @@ const useCrud = (data = [], url) => {
   const createData = async (data) => {
     setIsLoading(true);
     try {
-      const res = await jwtAxios.post(BASE_URL + url, data);
+      const res = await axiosInstance.post(BASE_URL + url, data);
       setDataCRUD(res.data);
       setError(null);
       setIsLoading(false);
