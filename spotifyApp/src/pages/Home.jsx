@@ -20,13 +20,18 @@ const Home = () => {
     setShowTextField(true);
   };
   const handleSubmit = () => {
-    fetchData();
+    if (roomCode.length > 0) {
+      fetchData();
+    } else {
+      setValidationError(true);
+    }
   };
   useEffect(() => {
     if (error) {
       setValidationError(true);
     }
     if (dataCRUD.length !== 0) {
+      console.log("data", dataCRUD);
       navigate(`/room/${dataCRUD.room_code}`);
     }
   }, [dataCRUD, error]);

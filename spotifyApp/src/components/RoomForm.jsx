@@ -44,7 +44,7 @@ const RoomForm = () => {
     >
       <FormRoomName name="room_name" control={control} label="Room Name" />
       {/* Radio Group */}
-      <Controller
+      {/* <Controller
         name="option"
         control={control}
         defaultValue="1"
@@ -54,9 +54,9 @@ const RoomForm = () => {
             <FormControlLabel value="2" control={<Radio />} label="Option 2" />
           </RadioGroup>
         )}
-      />
+      /> */}
       {/* Switch Input */}
-      <Controller
+      {/* <Controller
         name="switch"
         control={control}
         defaultValue={false}
@@ -66,7 +66,7 @@ const RoomForm = () => {
             label="Toggle Switch"
           />
         )}
-      />
+      /> */}
       <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
         Submit
       </Button>
