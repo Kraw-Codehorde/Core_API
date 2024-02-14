@@ -1,8 +1,8 @@
-/* homeStyles.module.css */
+/*homeStyles*/
 
-.homePageContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* .mainButton {
+} */
+
+.mainText {
+  color: #ffe4c4d6;
 }

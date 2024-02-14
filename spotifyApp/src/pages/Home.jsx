@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import PathConstants from "../routes/pathConstants";
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import useCrud from "../hooks/useCruds";
 import { useNavigate } from "react-router-dom";
+import homeStyles from "../css/homeStyles.module.css";
 
 const Home = () => {
   const [showTextField, setShowTextField] = useState(false);
@@ -31,20 +32,45 @@ const Home = () => {
   }, [dataCRUD, error]);
   return (
     <>
-      <h1>Spotify App</h1>
       <Grid container spacing={2} direction="column" alignItems="center">
-        <p>This is a Spotify App</p>
         <Grid item xs={12} sm={6} md={4}>
-          <Link
-            component="button"
-            variant="body2"
-            to={PathConstants.CREATE_ROOM}
+          <Typography
+            variant="h3"
+            align="center"
+            className={homeStyles.mainText}
           >
-            CREATE A ROOM
-          </Link>
+            Spotify App
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-          <Button onClick={handleClick}>Join a Room</Button>
+          <Typography variant="h6" className={homeStyles.mainText}>
+            This is a Spotify App!
+          </Typography>
+        </Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          direction="column"
+          alignItems="center"
+        >
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              className={homeStyles.mainButton}
+              variant="contained"
+              component={Link}
+              to={PathConstants.CREATE_ROOM}
+            >
+              CREATE A ROOM
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button onClick={handleClick} variant="contained" color="error">
+              Join a Room
+            </Button>
+          </Grid>
         </Grid>
         {showTextField && (
           <Grid item xs={12} sm={6} md={4}>
