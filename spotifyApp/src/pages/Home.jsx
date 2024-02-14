@@ -24,10 +24,8 @@ const Home = () => {
   useEffect(() => {
     if (error) {
       setValidationError(true);
-      console.log(error);
     }
     if (dataCRUD.length !== 0) {
-      console.log(dataCRUD);
       navigate(`/room/${dataCRUD.room_code}`);
     }
   }, [dataCRUD, error]);

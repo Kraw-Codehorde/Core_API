@@ -1,9 +1,7 @@
 import { createContext, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import PathConstants from "../routes/pathConstants";
+
 import { useEffect } from "react";
 import axios from "axios";
-import { get, set } from "react-hook-form";
 
 const AuthContext = createContext();
 
@@ -18,7 +16,6 @@ const AuthContextProvider = ({ children }) => {
       );
       return res.data.is_authenticated;
     } catch (err) {
-      console.log("Error:", err);
       return false;
     }
   };
@@ -30,7 +27,6 @@ const AuthContextProvider = ({ children }) => {
       setLoggedIn(isAuthenticated);
     };
     fetchData();
-    // console.log("loggedIn", loggedIn);
   }, [loggedIn]);
 
   return (

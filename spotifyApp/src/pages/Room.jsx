@@ -8,7 +8,7 @@ import useCrud from "../hooks/useCruds";
 const Room = () => {
   const { id } = useParams();
   const { fetchData } = useCrud([], `/current-song?room_code=${id}`);
-  const [dataToShow, setDataToShow] = useState("<div>...loading</div>");
+  const [dataToShow, setDataToShow] = useState("...loading");
 
   const populateData = (code, data) => {
     if (code === 200) {
