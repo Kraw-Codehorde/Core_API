@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
+from rest_framework_api_key.permissions import HasAPIKey
 
 from projects.models import Project
 
@@ -12,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -21,10 +22,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+   
 
 class ProjectViewSet(viewsets.ModelViewSet):
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [HasAPIKey]
+
+    def get_queryset(self):
+        # _, key = self.request.META.get('HTTP_AUTHORIZATION').split("{} ".format('Api-Key'))
+        # print(key)
+        return super().get_queryset()

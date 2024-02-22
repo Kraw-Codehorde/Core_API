@@ -44,9 +44,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'api_spotify',
     'corsheaders',
-    'oauth2_provider',
-    'social_django',
-    'drf_social_oauth2',
+    'rest_framework_api_key',
 ]
 
 MIDDLEWARE = [
@@ -129,10 +127,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend'),
-    os.path.join(BASE_DIR, 'templates/assets'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'frontend'),
+#     os.path.join(BASE_DIR, 'templates/assets'),
+# )
 
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -152,24 +150,25 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
+        "rest_framework_api_key.permissions.HasAPIKey",
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
-        'drf_social_oauth2.authentication.SocialAuthentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
+        # 'drf_social_oauth2.authentication.SocialAuthentication',
     ),
     'AUTHENTICATION_BACKENDS': (
         #spotify oauth2
-        'social_core.backends.spotify.SpotifyOAuth2',
+        # 'social_core.backends.spotify.SpotifyOAuth2',
         #drf-social-oauth2    
-        'drf_social_oauth2.backends.DjangoOAuth2',
+        # 'drf_social_oauth2.backends.DjangoOAuth2',
         #Django
         'django.contrib.auth.backends.ModelBackend',
 ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-
+# API_KEY_CUSTOM_HEADER = 'Api-Key'
 
 # SOCIAL_AUTH_SPOTIFY_SCOPE = ['user-read-email', 'user-read-private']
 
