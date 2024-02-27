@@ -28,9 +28,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    # permission_classes = [HasAPIKey]
+  
 
-    def get_queryset(self):
-        # _, key = self.request.META.get('HTTP_AUTHORIZATION').split("{} ".format('Api-Key'))
-        # print(key)
-        return super().get_queryset()
+    

@@ -12,6 +12,9 @@ const AuthContextProvider = ({ children }) => {
         "http://localhost:8000/api/spotify/is-authenticated",
         {
           withCredentials: true,
+          headers: {
+            Authorization: "Api-Key VcLHUixj.oBC1meI98TYAfkr13IibzVPnYRUscDLq",
+          },
         }
       );
       return res.data.is_authenticated;
