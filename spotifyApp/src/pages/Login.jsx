@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { API_KEY } from "../cred";
 
 import axios from "axios";
 
@@ -9,7 +10,7 @@ const Login = () => {
     axiosClient
       .get("api/spotify/login", {
         headers: {
-          Authorization: "Api-Key VcLHUixj.oBC1meI98TYAfkr13IibzVPnYRUscDLq",
+          Authorization: `Api-Key ${API_KEY}`,
         },
       })
       .then((res) => {
