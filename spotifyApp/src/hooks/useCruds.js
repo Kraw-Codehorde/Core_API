@@ -5,6 +5,9 @@ import axios from "axios";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
+  headers: {
+    Authorization: "Api-Key VcLHUixj.oBC1meI98TYAfkr13IibzVPnYRUscDLq",
+  },
 });
 
 const useCrud = (data = [], url) => {
