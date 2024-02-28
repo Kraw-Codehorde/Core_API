@@ -1,4 +1,5 @@
 import { BASE_URL } from "../config";
+import { API_KEY } from "../cred";
 import { useState } from "react";
 import axios from "axios";
 
@@ -6,7 +7,7 @@ const axiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
-    Authorization: "Api-Key VcLHUixj.oBC1meI98TYAfkr13IibzVPnYRUscDLq",
+    Authorization: `Api-Key ${API_KEY}`,
   },
 });
 

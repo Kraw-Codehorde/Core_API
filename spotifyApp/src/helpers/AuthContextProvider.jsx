@@ -1,5 +1,5 @@
 import { createContext, useState, useContext } from "react";
-
+import { API_KEY } from "../cred";
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ const AuthContextProvider = ({ children }) => {
         {
           withCredentials: true,
           headers: {
-            Authorization: "Api-Key VcLHUixj.oBC1meI98TYAfkr13IibzVPnYRUscDLq",
+            Authorization: `Api-Key ${API_KEY}`,
           },
         }
       );
