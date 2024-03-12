@@ -9,4 +9,3 @@ frontend/dist/main.js
 db.sqlite3
 .vscode/settings.json
 .env
-spotifyApp/
