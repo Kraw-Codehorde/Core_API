@@ -11,12 +11,14 @@ django-filter==23.5
 djangorestframework==3.14.0
 djangorestframework-api-key==2.3.0
 drf-spectacular==0.27.1
+gunicorn==21.2.0
 idna==3.6
 inflection==0.5.1
 jsonschema==4.21.1
 jsonschema-specifications==2023.12.1
 Markdown==3.5.2
 oauthlib==3.2.2
+packaging==24.0
 pillow==10.2.0
 pycparser==2.21
 PyJWT==2.8.0

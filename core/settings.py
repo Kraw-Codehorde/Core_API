@@ -20,13 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w*@v=ka31be7kwhimpg3#2fek($*yyx%n6gmyc=$1=(af3%^ag'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(" ")
+
 
 
 # Application definition
@@ -125,7 +127,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = '/usr/src/app/staticfiles/'
+
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'frontend'),
 #     os.path.join(BASE_DIR, 'templates/assets'),
